@@ -1,143 +1,81 @@
-# C-Shark – The Command-Line Packet Predator
+# Unix Shell
 
-A command-line packet analyzer built in **C** using **libpcap** for capturing, decoding, and inspecting live network traffic. C-Shark performs multi-layer protocol analysis from Ethernet frames to application-layer protocols, supports protocol-based filtering, and provides interactive packet inspection with hexadecimal and ASCII visualization.
+A Unix-like command-line shell implemented in **C** using **POSIX system calls**. The shell replicates core Linux shell functionality by supporting command execution, process creation, piping, input/output redirection, background execution, and custom built-in commands while providing hands-on experience with Linux system programming.
 
 ---
 
 ## Features
 
-- Live packet capture from available network interfaces
-- Automatic network interface discovery
-- Multi-layer packet decoding
-- Interactive command-line interface
-- Protocol-based packet filtering
-- Session storage for offline inspection
-- Hexadecimal and ASCII packet visualization
-- Graceful signal handling (`Ctrl+C` and `Ctrl+D`)
+- Interactive command-line shell
+- Execute external Linux commands
+- Built-in shell commands
+- Input (`<`) and output (`>`, `>>`) redirection
+- Command pipelines using (`|`)
+- Background process execution (`&`)
+- Process management
+- Signal handling
+- Command history and logging
+- Modular project architecture
 
 ---
 
-## Supported Protocols
+## Built-in Commands
 
-### Layer 2
-- Ethernet
-- ARP
+The shell includes several custom built-in commands in addition to executing standard Linux commands.
 
-### Layer 3
-- IPv4
-- IPv6
+Implemented modules include:
 
-### Layer 4
-- TCP
-- UDP
-
-### Application Layer
-- HTTP
-- HTTPS
-- DNS
+- `hop` – Directory navigation
+- `reveal` – File and directory listing
+- `log` – Command history management
+- `activities` – Process monitoring
+- `execute` – Command execution engine
+- `commands` – Command parsing and dispatch
 
 ---
 
-## Packet Analysis
+## Project Structure
 
-C-Shark extracts and displays protocol-specific information for every captured packet.
-
-### Ethernet
-- Source and Destination MAC Addresses
-- EtherType
-
-### IPv4
-- Source and Destination IP
-- TTL
-- Protocol
-- Packet ID
-- Header Length
-- Total Length
-- Fragmentation Flags
-
-### IPv6
-- Source and Destination IP
-- Traffic Class
-- Flow Label
-- Payload Length
-- Next Header
-- Hop Limit
-
-### ARP
-- Operation Type
-- Sender and Target IP Addresses
-- Sender and Target MAC Addresses
-- Hardware and Protocol Information
-
-### TCP
-- Source and Destination Ports
-- Sequence Number
-- Acknowledgement Number
-- Flags
-- Window Size
-- Header Length
-- Checksum
-
-### UDP
-- Source and Destination Ports
-- Datagram Length
-- Checksum
-
-### Payload Inspection
-- HTTP Detection
-- HTTPS Detection
-- DNS Detection
-- Hex + ASCII dump of packet payload
+```
+shell
+├── include
+│   ├── activities.h
+│   ├── commands.h
+│   ├── execute.h
+│   ├── hop.h
+│   ├── log.h
+│   └── reveal.h
+│
+├── src
+│   ├── activities.c
+│   ├── commands.c
+│   ├── execute.c
+│   ├── hop.c
+│   ├── log.c
+│   ├── main.c
+│   └── reveal.c
+│
+├── Makefile
+└── README.md
+```
 
 ---
 
-## Packet Filtering
+## Technologies Used
 
-C-Shark supports protocol-based packet filtering including:
-
-- HTTP
-- HTTPS
-- DNS
-- TCP
-- UDP
-- ARP
-- Custom IP filters
-- Custom Port filters
-
----
-
-## Session Management
-
-Captured packets are stored during execution for later inspection.
-
-Features include:
-
-- Packet history
-- Session persistence
-- Detailed packet inspection
-- Packet summary table
-- Memory management for up to **10,000 packets**
-
----
-
-## Requirements
-
+- C
+- POSIX System Calls
 - Linux
 - GCC
-- libpcap
-
-Install libpcap on Ubuntu/Debian:
-
-```bash
-sudo apt install libpcap-dev
-```
+- Make
 
 ---
 
 ## Build
 
+Compile the project using:
+
 ```bash
-make clean
 make
 ```
 
@@ -146,70 +84,91 @@ make
 ## Run
 
 ```bash
-sudo ./cshark
+./shell.out
 ```
 
-> **Note:** Root privileges are required for live packet capture.
-
 ---
 
-## Example Workflow
+## Supported Functionality
 
-1. Select a network interface.
-2. Start packet capture.
-3. Capture all packets or apply protocol filters.
-4. Stop capture using **Ctrl+C**.
-5. Inspect captured packets.
-6. View detailed packet information.
-7. Exit the application.
+The shell supports:
 
----
-
-## Technologies Used
-
-- C
-- libpcap
-- POSIX APIs
-- Linux Networking
-
----
-
-## Concepts Demonstrated
-
-- Packet sniffing using libpcap
-- Network protocol parsing
-- Layer-by-layer packet analysis
-- Binary data processing
-- Memory management
+- Executing Linux commands
+- Running commands in the background
+- Command pipelines
+- Input and output redirection
+- Built-in shell commands
+- Process management
 - Signal handling
-- Interactive terminal applications
-- Hexadecimal packet visualization
+- Interactive command execution
 
 ---
 
-## Project Structure
+## Operating System Concepts Demonstrated
 
+This project provides practical implementation of several core operating system concepts including:
+
+- Process creation using `fork()`
+- Program execution using `exec()`
+- Process synchronization using `wait()`
+- File descriptor manipulation
+- Inter-process communication using pipes
+- Input and output redirection
+- Signal handling
+- Linux filesystem operations
+
+---
+
+## Example Usage
+
+```bash
+$ pwd
+
+$ ls -la
+
+$ hop ..
+
+$ reveal
+
+$ cat file.txt
+
+$ cat file.txt | grep hello
+
+$ sort < input.txt > output.txt
+
+$ sleep 20 &
 ```
-.
-├── include/
-├── src/
-├── Makefile
-└── README.md
-```
+
+---
+
+## Learning Outcomes
+
+This project helped strengthen understanding of:
+
+- Linux system programming
+- POSIX APIs
+- Shell architecture
+- Process management
+- Command parsing
+- Inter-process communication
+- File descriptor management
+- Operating system fundamentals
 
 ---
 
 ## Future Improvements
 
-- PCAP file export
-- ICMP and ICMPv6 support
-- IPv6 extension header parsing
-- Packet statistics dashboard
-- Enhanced filtering options
-- Colored terminal output
+Potential enhancements include:
+
+- Job control (`jobs`, `fg`, `bg`)
+- Auto-completion
+- Environment variable expansion
+- Alias support
+- Shell scripting
+- Improved history search
 
 ---
 
 ## License
 
-Developed for educational purposes as part of a systems programming course.
+Developed for educational purposes as part of an Operating Systems / Systems Programming course.
